@@ -6,6 +6,7 @@ import Cats from "./components/Cats"
 import NewCat from "./components/NewCat"
 import { getCats } from "./api/index"
 import { createCat } from "./api/index"
+import { editCat } from "./api/index"
 import { destroyCat } from "./api/index"
 
 class App extends Component {
@@ -13,14 +14,22 @@ class App extends Component {
         super(props)
         this.state = {
             cats: [],
-            isOpen: false
+            isOpen: false,
+            isEdit: false
         }
     }
 
-    toggleModal = () =>{
+    toggleModal = () => {
         let state = (this.state.isOpen ? false : true)
         this.setState({
           isOpen: state
+        })
+    }
+
+    toggleEdit = () => {
+        let state = (this.state.isEdit ? false: true)
+        this.setState({
+            isEdit: true
         })
     }
 
@@ -32,6 +41,14 @@ class App extends Component {
 		})
 	}
 
+    edit = (cat, id) => {
+        editCat(cat, id).then(APIcats => {
+            this.setState({
+                cats: APIcats
+            })
+        })
+    }
+
   update = (add) => {
       createCat(add).then(APIcats => {
           this.setState({
@@ -39,6 +56,7 @@ class App extends Component {
           })
       })
   }
+
 
   delete = (cat) => {
       destroyCat(cat).then(APIcats => {
@@ -60,9 +78,10 @@ class App extends Component {
 		<div>
 			<Header />
             <br />
-			<Cats cats={this.state.cats} delete={this.delete} toggle={this.toggleModal} isOpen={this.state.isOpen}/>
+			<Cats cats={this.state.cats} delete={this.delete} toggle={this.toggleModal} toggleEdit={this.toggleEdit} isOpen={this.state.isOpen} isEdit={this.state.isEdit}
+            edit={this.edit} />
             <br />
-			<NewCat cats={this.state.cats} update={this.update}/>
+			<NewCat cats={this.state.cats} update={this.update} />
 		</div>
     );
   }

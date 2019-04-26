@@ -27,6 +27,7 @@
   "devDependencies": {
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
+    "react-edit-inline": "^1.0.8",
     "react-test-renderer": "^16.8.6"
   }
 }

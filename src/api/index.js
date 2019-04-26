@@ -35,6 +35,21 @@ export {
 	createCat
 }
 
+let editCat = (cat, id) => {
+	return fetch(BASE  + `/cats/${id}`, {
+		body: JSON.stringify(cat),
+		headers: {'Content-Type': 'application/json'},
+		method: "PUT"
+	}).then((resp) => {
+		let json = resp.json()
+		return json
+	})
+}
+
+export {
+	editCat
+}
+
 let destroyCat = function(cat) {
 	return fetch(BASE + `/cats/${cat}`, {
 		body: JSON.stringify(cat),  // <- we need to stringify the json for fetch

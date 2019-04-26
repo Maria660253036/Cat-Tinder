@@ -17,7 +17,11 @@ class NewModal extends Component {
                 <Modal.Title>Cat Info</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {this.props.cat.name}
+                <ul>
+                    <li>Name: {this.props.cat.name}</li>
+                    <li>Age: {this.props.cat.age}</li>
+                    <li>Enjoys: {this.props.cat.enjoys}</li>
+                </ul>
             </Modal.Body>
             <Modal.Footer>
                 <button onClick={this.toggleModal}>

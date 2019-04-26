@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import NewModal from "./NewModal"
+import EditCatModal from "./EditCatModal"
 import {
   Col, Container, Row, ListGroupItem, ListGroup
 } from 'react-bootstrap'
@@ -8,8 +9,10 @@ class Cats extends Component {
     constructor(props){
         super(props)
         this.state = {
-            cat: ""
+            cat: "",
+            id: ""
         }
+
     }
 
     handleDelete = (cat) => {
@@ -19,6 +22,11 @@ class Cats extends Component {
     toggleModal = (cat) => {
         this.props.toggle()
         this.setState({cat: cat})
+    }
+
+    toggleEdit = (cat, id) => {
+        this.props.toggleEdit()
+        this.setState({cat: cat, id: id})
     }
 
   render() {
@@ -39,12 +47,23 @@ class Cats extends Component {
                     <span className='cat-enjoys'>
                       {cat.enjoys}
                     </span>
-                    <button id="submit" type="submit" onClick={() => this.handleDelete(cat.id)}>Delete Cat Profile</button>
+                    <br />
+                    
+                    <button id="submit" type="submit" onClick={() => this.handleDelete(cat.id)}>Delete Cat</button>
 
-                    <button onClick={() => this.toggleModal(cat)}>
-                        Cat Info
+                    <button onClick= {() => this.toggleModal(cat)}>
+                        View Cat Info
                     </button>
-                    <NewModal cat={this.state.cat} isOpen={this.props.isOpen} toggle={this.props.toggle}/>
+
+                    <button onClick = {() => this.toggleEdit(cat, cat.id)}>
+                        Edit Cat
+                    </button>
+
+                    <NewModal cat={this.state.cat} isOpen={this.props.isOpen} toggle={this.props.toggle} />
+
+                    <EditCatModal cat={this.state.cat} id={this.state.id}
+                        edit={this.props.edit} isEdit={this.props.isEdit}
+                        toggle={this.props.toggleEdit} />
                   </ListGroupItem>)
               })}
             </ListGroup>
